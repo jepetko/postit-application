@@ -1,9 +1,20 @@
-<h3>Posts</h3>
+<%= render 'shared/content_title', title: 'Posts' %>
 
-<ul>
-  <% @posts.each do |p| %>
-    <li><%= link_to p.title, post_path(p) %></li>
-  <% end %>
-</ul>
+<% @posts.each do |post| %>
+<div class="row">
+    <div class="span8 well">
+      <%= render post.categories %>
+      <h4><%= link_to post.title, post_path(post) %></h4>
+        <p><%=post.description%></p>
+        <p>
+          <span class="quiet">posted by <%=post.creator.username%></span>
+          <small>at <%=post.created_at%></small>
+        </p>
+        <small>
+          <%= link_to("#{post.comments.size} comments", post_path(post)) %>
+        </small>
+    </div>
+</div>
+<% end %>
 
 
