@@ -10,7 +10,15 @@
 <%= link_to 'go back', posts_path %>
 
 <h5>Create a comment:</h5>
+<%= render 'shared/errors', obj: @comment %>
 <%= form_for [@post, @comment] do |f| %>
     <%= f.text_area :body %>
     <%= f.submit 'Create comment', class: 'btn btn-primary' %>
+<% end %>
+
+<h5>Comments so far:</h5>
+<% @post.comments.each do |comment| %>
+    <p class="well">
+      <%=comment.body%>
+    </p>
 <% end %>
