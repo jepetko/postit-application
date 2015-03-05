@@ -7,12 +7,13 @@ class Post < ActiveRecord::Base
   has_many :comments
 
   validates :title, presence: true
-  validates :url, presence: true
+  #validates :url, format: { with: %r{http://\w+.[a-z]{1,20}}i, message: 'must begin with http:// and contain only letters, numbers and underscores' }
   validate :format_of_the_url
 
   private
+
   def format_of_the_url
-    return if url =~ /http:\/\/w+\.[a-z]{1,20}/i
+    return if url =~ %r{http://\w+.[a-z]{1,20}}i
     errors.add(:url, 'the format of the url is invalid')
   end
 end
