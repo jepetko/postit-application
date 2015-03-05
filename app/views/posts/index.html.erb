@@ -1,21 +1,7 @@
 <%= render 'shared/content_title', title: 'Posts' %>
 
 <% @posts.each do |post| %>
-<div class="row">
-    <div class="span8 well">
-      <%= render post.categories %>
-      <h4><%= link_to post.title, post_path(post) %></h4>
-        <p><%=post.description%></p>
-        <p>
-          <span class="quiet">posted by <%=post.creator.nil? ? '' : post.creator.username%></span>
-          <small>at <%=post.created_at%></small>
-        </p>
-        <small>
-          <%= link_to("#{post.comments.size} comments", post_path(post)) %>
-          <%= link_to('edit post', edit_post_path(post), class: 'btn btn-primary') %>
-        </small>
-    </div>
-</div>
+    <%= render 'posts/post', post: post %>
 <% end %>
 
 

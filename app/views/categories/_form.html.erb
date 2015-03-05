@@ -1,7 +1,11 @@
-<%= form_for @category do |f| %>
-    <div class="control-group">
-      <%=f.label :name %>
-      <%=f.text_field :name %>
-    </div>
-    <%=f.submit 'Add category', class: 'btn btn-primary'%>
-<% end %>
+<%= render 'shared/errors', obj: @category %>
+
+<div class="well">
+    <%= form_for @category do |f| %>
+        <div class="control-group">
+          <%=f.label :name %>
+          <%=f.text_field :name %>
+        </div>
+        <%=f.submit 'Add category', class: 'btn btn-primary'%>
+    <% end %>
+</div>
