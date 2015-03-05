@@ -2,13 +2,17 @@
 
 <%= form_for @post do |f| %>
     <div class="control-group">
-        <%=f.label :title%>
-        <%=f.text_field :title%>
+      <%= f.label :title %>
+      <%= f.text_field :title %>
     </div>
     <div class="control-group">
-        <%=f.label :url%>
-        <%=f.text_field :url%>
+      <%= f.label :url %>
+      <%= f.text_field :url %>
+    </div>
+    <div class="control-group">
+      <%= f.label :description %>
+      <%= f.text_area :description %>
     </div>
     <br/>
-    <%=f.submit( @post.new_record? ? 'Create post' : 'Update post', class: 'btn btn-primary')%>
+    <%= f.submit(@post.new_record? ? 'Create post' : 'Update post', class: 'btn btn-primary') %>
 <% end %>
