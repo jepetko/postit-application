@@ -5,7 +5,7 @@
     <p><%=post.description%></p>
     <p>
       <span class="quiet">posted by <%=post.creator.nil? ? '' : post.creator.username%></span>
-      <small>at <%=post.created_at%></small>
+      <small>at <%=fix_date post.created_at%></small>
     </p>
     <small>
       <%= link_to("#{post.comments.size} comments", post_path(post)) %>

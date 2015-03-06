@@ -15,14 +15,19 @@
 <%= form_for [@post, @comment] do |f| %>
     <%= render 'shared/errors', obj: @comment %>
     <div class="form-group">
-        <%= f.text_area :body %>
+        <%= f.text_area :body, rows: 3, class: 'span4' %>
     </div>
     <%= f.submit 'Create comment', class: 'btn btn-primary' %>
 <% end %>
 
 <h5>Comments so far:</h5>
 <% @post.comments.each do |comment| %>
-    <p class="well">
-      <%=comment.body%>
+    <p class="well span8">
+      <em>
+        "<%=comment.body%>"
+      </em>
+      <br/>
+      <span class="quiet">by</span>
+      <%= comment.creator.username %> <small>at <%= fix_date comment.created_at %></small>
     </p>
 <% end %>
