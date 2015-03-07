@@ -27,9 +27,7 @@ class UsersController < ApplicationController
 
   def update
     @user = current_user
-    @user.username = user_params[:username]
-    @user.password = user_params[:password]
-    if @user.save
+    if @user.update(user_params)
       flash[:notice] = 'Your profile has been changed.'
       login @user
       redirect_to root_path

@@ -17,8 +17,11 @@ module ApplicationHelper
     request.fullpath == user_path(user, tab: :comments)
   end
 
-  def activate_if(path)
-    return ' class="active"'.html_safe if request.fullpath == path
-    ''
+  def active_for(obj, tab)
+    if obj == :posts && tab.nil?
+      'active'
+    elsif obj == :comments && tab == 'comments'
+      'active'
+    end
   end
 end

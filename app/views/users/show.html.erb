@@ -1,26 +1,26 @@
-<%= render 'shared/content_title', title: "User: #{current_user.username}" %>
+<%= render 'shared/content_title', title: "User: #{@user.username}" %>
 <div class="well">
-  <%= current_user.username %>
+  <%= @user.username %>
 </div>
-<h5><%= current_user.username %>'s activity:</h5>
+<h5><%= @user.username %>'s activity:</h5>
 
 <ul class="nav nav-tabs">
-  <li role="presentation" <%= activate_if(user_path(current_user)) %>>
-    <%= link_to "Posts (#{current_user.posts.count})", user_path(current_user) %>
+  <li role="presentation" <%= active_for(:posts, params[:tab]) %>>
+    <%= link_to "Posts (#{@user.posts.count})", user_path(@user) %>
   </li>
-  <li role="presentation" <%= activate_if(user_path(current_user, tab: :comments)) %>>
-    <%= link_to "Comments (#{current_user.comments.count})", user_path(current_user, tab: :comments) %>
+  <li role="presentation" <%= active_for(:comments, params[:tab]) %>>
+    <%= link_to "Comments (#{@user.comments.count})", user_path(@user, tab: :comments) %>
   </li>
 </ul>
 
 <div class="tab-content">
   <div class="tab-pane active">
-    <% if is_path_user_posts?(current_user) %>
-        <% current_user.posts.each do |post| %>
+    <% if is_path_user_posts?(@user) %>
+        <% @user.posts.each do |post| %>
             <%= render 'posts/post', post: post %>
         <% end %>
-    <% elsif is_path_user_comments?(current_user) %>
-        <% current_user.comments.each do |comment| %>
+    <% elsif is_path_user_comments?(@user) %>
+        <% @user.comments.each do |comment| %>
             <%= render 'comments/comment', comment: comment, link_to_associated_post: true %>
         <% end %>
     <% end %>

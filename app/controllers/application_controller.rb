@@ -26,9 +26,6 @@ class ApplicationController < ActionController::Base
   end
 
   def login(user)
-    return if user.nil?
-    session[:user_id] = user.id
+    session[:user_id] = user.id unless user.nil?
   end
-
-
 end
