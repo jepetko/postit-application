@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   # make it available in views
-  helper_method :current_user, :logged_in?, :is_path_user_posts?, :is_path_user_comments?, :activate_if
+  helper_method :current_user, :logged_in?
 
   def current_user
     # if there's authenticated user, return the user obj
@@ -30,16 +30,5 @@ class ApplicationController < ActionController::Base
     session[:user_id] = user.id
   end
 
-  def is_path_user_posts?(user)
-    request.fullpath == user_path(user)
-  end
 
-  def is_path_user_comments?(user)
-    request.fullpath == user_path(user, tab: :comments)
-  end
-
-  def activate_if(path)
-    return ' class="active"'.html_safe if request.fullpath == path
-    ''
-  end
 end
