@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 
-  before_action :require_user
+  before_action :require_user, except: [:new]
 
   def new
     @user = User.new
@@ -19,6 +19,23 @@ class UsersController < ApplicationController
 
   def show
     @user = current_user
+  end
+
+  def edit
+    @user = current_user
+  end
+
+  def update
+    @user = current_user
+    @user.username = user_params[:username]
+    @user.password = user_params[:password]
+    if @user.save
+      flash[:notice] = 'Your profile has been changed.'
+      login @user
+      redirect_to root_path
+    else
+      render :edit
+    end
   end
 
   private
