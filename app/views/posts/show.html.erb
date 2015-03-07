@@ -22,12 +22,5 @@
 
 <h5>Comments so far:</h5>
 <% @post.comments.each do |comment| %>
-    <p class="well span8">
-      <em>
-        "<%=comment.body%>"
-      </em>
-      <br/>
-      <span class="quiet">by</span>
-      <%= comment.creator.username %> <small>at <%= fix_date comment.created_at %></small>
-    </p>
+    <%= render 'comments/comment', comment: comment %>
 <% end %>

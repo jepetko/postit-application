@@ -7,6 +7,7 @@ class Post < ActiveRecord::Base
   has_many :comments
 
   validates :title, presence: true
+  validates :creator, presence: true
   #validates :url, format: { with: %r{http://\w+.[a-z]{1,20}}i, message: 'must begin with http:// and contain only letters, numbers and underscores' }
   validate :format_of_the_url
 

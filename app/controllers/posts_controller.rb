@@ -23,6 +23,7 @@ class PostsController < ApplicationController
 
   def create
     @post = Post.new(post_params)
+    @post.creator = current_user
     if @post.save
       flash[:notice] = 'Your post was created.'
       redirect_to posts_path
@@ -45,7 +46,7 @@ class PostsController < ApplicationController
 
   private
   def post_params
-    params.require(:post).permit(:name, :url, :description, :category_ids => [])
+    params.require(:post).permit(:title, :url, :description, :category_ids => [])
   end
 
   def set_post
