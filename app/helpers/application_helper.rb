@@ -18,7 +18,6 @@ module ApplicationHelper
   end
 
   def link_to_voteable(voteable, vote, html_options = nil, &block)
-    return '' if voteable.new_record?
     if voteable.instance_of?(Post)
       link = vote_post_path(voteable, vote: vote)
     elsif voteable.instance_of?(Comment)
