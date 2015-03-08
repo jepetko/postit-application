@@ -16,4 +16,14 @@ module ApplicationHelper
       'active'
     end
   end
+
+  def link_to_voteable(voteable, vote, html_options = nil, &block)
+    return '' if voteable.new_record?
+    if voteable.instance_of?(Post)
+      link = vote_post_path(voteable, vote: vote)
+    elsif voteable.instance_of?(Comment)
+      link = vote_post_comment_path(voteable.post, voteable, vote: vote)
+    end
+    link_to link, html_options, &block
+  end
 end

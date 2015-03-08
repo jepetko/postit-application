@@ -1,12 +1,16 @@
 <% link_to_associated_post ||= false %>
-<p class="well span8">
-  <em>
-    "<%=comment.body%>"
-    <% if link_to_associated_post %>
-        on <%=link_to comment.post.title, post_path(comment.post)%>
-    <% end %>
-  </em>
-  <br/>
-  <span class="quiet">by</span>
-  <%= link_to comment.creator.username, user_path(comment.creator) %> <small>at <%= fix_date comment.created_at %></small>
-</p>
+<div class="row">
+  <%= render 'shared/voting', voteable: comment %>
+  <p class="well span8">
+    <em>
+      "<%= comment.body %>"
+      <% if link_to_associated_post %>
+          on <%= link_to comment.post.title, post_path(comment.post) %>
+      <% end %>
+    </em>
+    <br/>
+    <span class="quiet">by</span>
+    <%= link_to comment.creator.username, user_path(comment.creator) %>
+    <small>at <%= fix_date comment.created_at %></small>
+  </p>
+</div>

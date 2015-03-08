@@ -1,12 +1,12 @@
 class PostsController < ApplicationController
 
-  before_action :set_post, only: [:show, :edit, :update]
+  before_action :set_post, only: [:show, :edit, :update, :vote]
   before_action :require_user, except: [:index, :show]
   # 1. set up instance variable for action
   # 2. redirect based on some condition
 
   def index
-    @posts = Post.all
+    @posts = Post.all.sort_by { |post| post.total_votes }.reverse
     respond_to do |format|
       format.html { render 'index' }
       format.json { render :json => @posts.to_json }
@@ -42,6 +42,16 @@ class PostsController < ApplicationController
     else
       render :edit
     end
+  end
+
+  def vote
+    @vote = Vote.create(voteable: @post, creator: current_user, vote: params[:vote])
+    if @vote.valid?
+      flash[:notice] = 'Your vote was counted.'
+    else
+      flash[:error] = 'You can only vote for <strong>that</strong> once.'.html_safe
+    end
+    redirect_to :back
   end
 
   private

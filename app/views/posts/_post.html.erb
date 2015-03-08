@@ -1,4 +1,5 @@
 <div class="row">
+  <%= render 'shared/voting', voteable: post %>
   <div class="span8 well">
     <%= render post.categories %>
     <h4><%= link_to post.title, post_path(post) %></h4>
