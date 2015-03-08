@@ -9,14 +9,6 @@ module ApplicationHelper
     dat.strftime('%d.%m.%Y')
   end
 
-  def is_path_user_posts?(user)
-    request.fullpath == user_path(user)
-  end
-
-  def is_path_user_comments?(user)
-    request.fullpath == user_path(user, tab: :comments)
-  end
-
   def active_for(obj, tab)
     if obj == :posts && tab.nil?
       'active'

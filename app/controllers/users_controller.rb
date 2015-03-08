@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
 
-  before_action :require_user, except: [:new]
+  before_action :set_user, only: [:show, :edit, :update]
+  before_action :require_same_user, only: [:edit, :update]
 
   def new
     @user = User.new
@@ -18,19 +19,16 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
   end
 
   def edit
-    @user = current_user
   end
 
   def update
-    @user = current_user
     if @user.update(user_params)
       flash[:notice] = 'Your profile has been changed.'
       login @user
-      redirect_to root_path
+      redirect_to user_path(@user)
     else
       render :edit
     end
@@ -39,6 +37,17 @@ class UsersController < ApplicationController
   private
   def user_params
     params.require(:user).permit(:username, :password, :phone, :time_zone)
+  end
+
+  def set_user
+    @user = User.find(params[:id])
+  end
+
+  def require_same_user
+    if current_user != @user
+      flash[:error] = 'Your are not allowed to edit another user.'
+      redirect_to root_path
+    end
   end
 
 end

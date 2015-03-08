@@ -8,5 +8,5 @@
   </em>
   <br/>
   <span class="quiet">by</span>
-  <%= comment.creator.username %> <small>at <%= fix_date comment.created_at %></small>
+  <%= link_to comment.creator.username, user_path(comment.creator) %> <small>at <%= fix_date comment.created_at %></small>
 </p>

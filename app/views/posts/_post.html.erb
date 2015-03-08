@@ -4,7 +4,7 @@
     <h4><%= link_to post.title, post_path(post) %></h4>
     <p><%=post.description%></p>
     <p>
-      <span class="quiet">posted by <%=post.creator.nil? ? '' : post.creator.username%></span>
+      <span class="quiet">posted by <%=link_to post.creator.username, user_path(post.creator)%></span>
       <small>at <%=fix_date post.created_at%></small>
     </p>
     <small>
