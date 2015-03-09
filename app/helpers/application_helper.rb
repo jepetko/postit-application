@@ -18,6 +18,7 @@ module ApplicationHelper
   end
 
   def link_to_voteable(voteable, vote, html_options = nil, &block)
+    return '' unless logged_in?
     if voteable.instance_of?(Post)
       link = vote ? upvote_post_path(voteable) : downvote_post_path(voteable)
     elsif voteable.instance_of?(Comment)
