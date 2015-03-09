@@ -19,9 +19,9 @@ module ApplicationHelper
 
   def link_to_voteable(voteable, vote, html_options = nil, &block)
     if voteable.instance_of?(Post)
-      link = vote_post_path(voteable, vote: vote)
+      link = vote ? upvote_post_path(voteable) : downvote_post_path(voteable)
     elsif voteable.instance_of?(Comment)
-      link = vote_post_comment_path(voteable.post, voteable, vote: vote)
+      link = vote ? upvote_post_comment_path(voteable.post, voteable) : downvote_post_comment_path(voteable.post, voteable)
     end
     link_to link, html_options, &block
   end

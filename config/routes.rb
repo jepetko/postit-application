@@ -13,7 +13,8 @@ PostitTemplate::Application.routes.draw do
 
     #/posts/1/vote
     member do
-      post :vote
+      post :upvote, to: :vote, defaults: {vote: true}
+      post :downvote, to: :vote, defaults: {vote: false}
     end
 
     #/posts/archives
@@ -24,7 +25,8 @@ PostitTemplate::Application.routes.draw do
 
     resources :comments, only: [:create] do
       member do
-        post :vote
+        post :upvote, to: :vote, defaults: {vote: true}
+        post :downvote, to: :vote, defaults: {vote: false}
       end
     end
   end
