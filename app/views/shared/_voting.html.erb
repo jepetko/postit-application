@@ -1,12 +1,13 @@
 <span class="span0 well text-center">
     <%= link_to_voteable voteable, true, method: :post do %>
-      <i class="icon-arrow-up"></i>
-      <br/>
+        <i class="icon-arrow-up"></i>
+        <br/>
     <% end %>
-  <%= voteable.total_votes %>
 
-  <%= link_to_voteable voteable, false, method: :post do %>
-      <br/>
-      <i class="icon-arrow-down"></i>
+    <%= voteable.total_votes %> votes
+
+    <%= link_to_voteable voteable, false, method: :post do %>
+        <br/>
+        <i class="icon-arrow-down"></i>
     <% end %>
-  </span>
+</span>
