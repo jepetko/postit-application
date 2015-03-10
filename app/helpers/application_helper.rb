@@ -5,8 +5,8 @@ module ApplicationHelper
   end
 
   def fix_date(dat)
-    return 'unknown' if dat.nil?
-    dat.strftime('%d.%m.%Y')
+    dat = dat.in_time_zone(current_user.time_zone) if logged_in? && !current_user.time_zone.blank?
+    dat.strftime('%d.%m.%Y %l:%M%P %Z')
   end
 
   def active_for(obj, tab)
