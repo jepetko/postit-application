@@ -29,3 +29,29 @@ $(document).ready(function() {
     });
 })
 */
+
+$(document).ready(function () {
+    (function ($) {
+        $('.upvote-link, .downvote-link').click(function () {
+            (function(anchor) {
+                $.ajax({
+                    type: 'POST',
+                    url: anchor.href,
+                    dataType: 'json'
+                }).done(function (msg) {
+                    var span = $(anchor).parent().find('span');
+                    span.text(msg['count'] + ' votes');
+                    if(span.attr('title') || span.attr('data-original-title')) {
+                        span.tooltip('destroy');
+                    }
+                    span.attr('title', msg['notice'] || msg['error']);
+                    span.tooltip('show');
+                    setTimeout(function() {
+                        span.tooltip('hide');
+                    }, 3000);
+                });
+            })(this);
+            return false;
+        });
+    })(jQuery);
+});

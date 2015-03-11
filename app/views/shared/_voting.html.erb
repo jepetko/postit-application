@@ -1,12 +1,14 @@
 <span class="span0 well text-center">
-    <%= link_to_voteable voteable, true, method: :post do %>
+    <%= link_to_voteable voteable, true, class: 'upvote-link', method: :post do %>
         <i class="icon-arrow-up"></i>
         <br/>
     <% end %>
 
-    <%= voteable.total_votes %> votes
+    <span data-toggle="tooltip" data-placement="top" title="">
+      <%= voteable.total_votes %> votes
+    </span>
 
-    <%= link_to_voteable voteable, false, method: :post do %>
+    <%= link_to_voteable voteable, false, class: 'downvote-link', method: :post do %>
         <br/>
         <i class="icon-arrow-down"></i>
     <% end %>

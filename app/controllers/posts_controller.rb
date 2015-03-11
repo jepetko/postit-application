@@ -47,11 +47,23 @@ class PostsController < ApplicationController
   def vote
     @vote = Vote.create(voteable: @post, creator: current_user, vote: params[:vote])
     if @vote.valid?
-      flash[:notice] = 'Your vote was counted.'
+      notice = 'Your vote was counted.'
     else
-      flash[:error] = 'You can only vote for <strong>that</strong> once.'.html_safe
+      error = 'You can only vote for that once.'
     end
-    redirect_to :back
+    respond_to do |format|
+      format.html do
+        flash[:notice] = notice if notice
+        flash[:error] = error if error
+        redirect_to :back
+      end
+      format.json do
+        hash = { count: @post.total_votes }
+        hash[:notice] = notice if notice
+        hash[:error] = error if error
+        render json: hash
+      end
+    end
   end
 
   private
