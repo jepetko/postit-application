@@ -4,7 +4,7 @@ class CommentsController < ApplicationController
   before_action :require_user
 
   def create
-    @post = Post.find(params[:post_id])
+    @post = Post.find_by(slug: params[:post_id])
     @comment = Comment.new(comment_params.merge(post: @post, creator: current_user))
 
     if @comment.save

@@ -1,4 +1,5 @@
 class Post < ActiveRecord::Base
+  before_save :generate_slug
   #attr_accessible :title, :url, :description
 
   belongs_to :creator, :foreign_key => 'user_id', :class_name => 'User'
@@ -24,10 +25,19 @@ class Post < ActiveRecord::Base
     self.votes.where(vote: true).size
   end
 
+  def to_param
+    self.slug
+  end
+
   private
 
   def format_of_the_url
     return if url =~ %r{http://\w+.[a-z]{1,20}}i
     errors.add(:url, 'the format of the url is invalid')
   end
+
+  def generate_slug
+    self.slug = title.strip.gsub(%r{\s+},'-').downcase
+  end
+
 end
