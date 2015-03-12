@@ -12,6 +12,7 @@ gem 'bcrypt-ruby', '~> 3.0.0'
 
 gem 'jquery-rails'
 gem 'turbolinks'
+gem 'jquery-turbolinks'
 gem 'jbuilder', '~> 1.2'
 
 group :doc do
