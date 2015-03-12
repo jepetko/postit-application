@@ -37,7 +37,34 @@ class Post < ActiveRecord::Base
   end
 
   def generate_slug
-    self.slug = title.strip.gsub(%r{\s+},'-').downcase
+    the_slug = to_slug(self.title)
+    post = Post.find_by slug: self.slug
+    count = 2
+    while post && post != self
+      the_slug = append_postfix(the_slug, count)
+      post = Post.find_by slug: the_slug
+      count += 1
+    end
+    self.slug = the_slug
+  end
+
+  def append_postfix(str, count)
+    if str =~ /\-/
+      pieces = str.split('-')
+      if pieces.last.to_i != 0
+        return pieces.slice(0...-1).join('-') + '-' + count.to_s
+      end
+    end
+    str + '-' + count.to_s
+  end
+
+  def to_slug(name)
+    str = name.strip
+    str.gsub!(%r{\s*[^0-9a-zA-Z]\s*}, '-')
+    str.gsub!(%r{\-+$}, '-')
+    str.gsub!(%r{(^\-|\-$)},'')
+    str.downcase
+    str
   end
 
 end
