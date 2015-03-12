@@ -1,4 +1,7 @@
 class User < ActiveRecord::Base
+
+  before_save :generate_slug
+
   has_many :posts
   has_many :comments
   has_many :votes
@@ -14,5 +17,14 @@ class User < ActiveRecord::Base
 
   def moderator?
     self.role == 'moderator'
+  end
+
+  def to_param
+    self.slug
+  end
+
+  private
+  def generate_slug
+    self.slug = self.username.gsub(%r{\s+}, '-').downcase
   end
 end
