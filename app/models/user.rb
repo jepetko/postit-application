@@ -1,6 +1,5 @@
 class User < ActiveRecord::Base
-
-  before_save :generate_slug
+  include Sluggable
 
   has_many :posts
   has_many :comments
@@ -19,12 +18,7 @@ class User < ActiveRecord::Base
     self.role == 'moderator'
   end
 
-  def to_param
-    self.slug
-  end
-
-  private
-  def generate_slug
-    self.slug = self.username.gsub(%r{\s+}, '-').downcase
+  def field_value_as_slug
+    self.username
   end
 end
