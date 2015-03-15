@@ -1,0 +1,10 @@
+<%= render 'shared/content_title', title: 'Two factor authentication requires a pin value.' %>
+
+<div class="well">
+    <%= form_tag '/pin', method: :post do %>
+        <%=label_tag :pin, 'Pin code'%>
+        <%=text_field_tag :pin %>
+        <br>
+        <%=submit_tag 'Confirm', class: 'btn btn-success' %>
+    <% end %>
+</div>

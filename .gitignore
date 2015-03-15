@@ -16,3 +16,4 @@
 /tmp
 .idea
 /public/assets
+/config/twilio_credentials.yml

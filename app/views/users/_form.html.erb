@@ -12,5 +12,12 @@
       <%=f.label :time_zone%>
       <%=f.time_zone_select :time_zone, [ActiveSupport::TimeZone.zones_map['Vienna']] %>
     </div>
+    <div class="control-group">
+      <%=f.label :phone, 'Phone number <small>(numbers only)</small>'.html_safe%>
+      <%=f.text_field :phone, maxlength: 9 %>
+      <%= link_to '#', id: 'two_factor_phone' do %>
+        <i class="icon-question-sign"></i>
+      <% end %>
+    </div>
     <%= f.submit @user.new_record? ? 'Register' : 'Update profile', class: 'btn btn-success' %>
 <% end %>

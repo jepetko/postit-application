@@ -15,6 +15,7 @@ gem 'turbolinks'
 gem 'jquery-turbolinks'
 gem 'jbuilder', '~> 1.2'
 gem 'voteable_gem'
+gem 'twilio-ruby'
 
 group :doc do
   gem 'sdoc', require: false

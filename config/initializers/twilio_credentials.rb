@@ -1,0 +1,1 @@
+PostitTemplate::Application.config.twilio_credentials = YAML::load_file("#{Rails.root}/config/twilio_credentials.yml")[Rails.env]

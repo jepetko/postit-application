@@ -10,6 +10,18 @@ class User < ActiveRecord::Base
 
   validates :password, presence: true, on: :create, length: {minimum: 3}
 
+  def two_factor_auth?
+    !self.phone.blank?
+  end
+
+  def generate_pin!
+    self.update_column(:pin, rand(10 ** 6))
+  end
+
+  def remove_pin!
+    self.update_column(:pin, nil)
+  end
+
   def admin?
     self.role == 'admin'
   end
