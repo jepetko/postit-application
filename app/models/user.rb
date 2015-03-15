@@ -41,4 +41,11 @@ class User < ActiveRecord::Base
   def get_slug_value
     self.username
   end
+
+
+  def send_pin
+    twilio_api_hash = PostitTemplate::Application.config.twilio_credentials
+    @twilio_client ||= Twilio::REST::Client.new twilio_api_hash['key'], twilio_api_hash['token']
+    @twilio_client.account.sms.messages.create(:body => self.pin, :to => self.phone, :from => twilio_api_hash['from'])
+  end
 end

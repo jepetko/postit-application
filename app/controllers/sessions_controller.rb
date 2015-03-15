@@ -13,9 +13,16 @@ class SessionsController < ApplicationController
       # to grant or deny the access to /pin later
       session[:two_factor] = true
       if user.two_factor_auth?
+        #generate pin for the user
         user.generate_pin!
+
         #send the pin to twilio
-        send_pin_to(user)
+        begin
+          user.send_pin
+        rescue Exception => e
+          flash[:error] = "Unfortunately, the two-way authentication raised an error: #{e.message}"
+        end
+
         redirect_to pin_path
       else
         login_user!(user)
@@ -55,16 +62,6 @@ class SessionsController < ApplicationController
     session[:user_id] = user.id
     flash[:notice] = 'You are logged in!'
     redirect_to root_path
-  end
-
-  def send_pin_to(user)
-    twilio_api_hash = PostitTemplate::Application.config.twilio_credentials
-    @twilio_client ||= Twilio::REST::Client.new twilio_api_hash['key'], twilio_api_hash['token']
-    begin
-      @twilio_client.account.messages.create(:body => user.pin, :to => user.phone, :from => twilio_api_hash['from'])
-    rescue Exception => e
-      flash[:error] = "Unfortunately, the two-way authentication raised an error: #{e.message}"
-    end
   end
 
 end
