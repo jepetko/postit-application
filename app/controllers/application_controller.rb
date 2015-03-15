@@ -33,6 +33,10 @@ class ApplicationController < ActionController::Base
     access_denied unless logged_in? && current_user.admin?
   end
 
+  def require_edit_role(post)
+    access_denied unless logged_in? && current_user.has_edit_role?(post)
+  end
+
   def access_denied
     flash[:error] = "You can't do that"
     redirect_to root_path

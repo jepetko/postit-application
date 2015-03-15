@@ -18,6 +18,14 @@ class User < ActiveRecord::Base
     self.role == 'moderator'
   end
 
+  def creator?(post)
+    self == post.creator
+  end
+
+  def has_edit_role?(post)
+    admin? || creator?(post)
+  end
+
   def get_slug_value
     self.username
   end

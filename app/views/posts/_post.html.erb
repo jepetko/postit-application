@@ -10,7 +10,9 @@
     </p>
     <small>
       <%= link_to("#{post.comments.size} comments", post_path(post)) %>
-      <%= link_to('edit post', edit_post_path(post), class: 'btn btn-primary') %>
+      <% if logged_in? && current_user.has_edit_role?(post) %>
+        <%= link_to('edit post', edit_post_path(post), class: 'btn btn-primary') %>
+      <% end %>
     </small>
   </div>
 </div>
