@@ -16,7 +16,7 @@ class Post < ActiveRecord::Base
   #validates :url, format: { with: %r{http://\w+.[a-z]{1,20}}i, message: 'must begin with http:// and contain only letters, numbers and underscores' }
   validate :format_of_the_url
 
-  def field_value_as_slug
+  def get_slug_value
     self.title
   end
 

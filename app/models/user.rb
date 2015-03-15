@@ -18,7 +18,7 @@ class User < ActiveRecord::Base
     self.role == 'moderator'
   end
 
-  def field_value_as_slug
+  def get_slug_value
     self.username
   end
 end

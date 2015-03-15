@@ -11,7 +11,7 @@ module Sluggable
   end
 
   def generate_slug
-    the_slug = to_slug(field_value_as_slug)
+    the_slug = to_slug(get_slug_value)
     post = self.class.find_by slug: self.slug
     count = 2
     while post && post != self
@@ -22,7 +22,7 @@ module Sluggable
     self.slug = the_slug
   end
 
-  def field_value_as_slug
+  def get_slug_value
     raise 'return self.title from this method if you are going to use title as slug'
   end
 
