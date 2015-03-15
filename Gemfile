@@ -14,7 +14,7 @@ gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jquery-turbolinks'
 gem 'jbuilder', '~> 1.2'
-#gem 'voteable_gem', path: '/home/katarina/RubymineProjects/voteable_gem'
+gem 'voteable_gem', path: '/home/katarina/RubymineProjects/voteable_gem'
 
 group :doc do
   gem 'sdoc', require: false
